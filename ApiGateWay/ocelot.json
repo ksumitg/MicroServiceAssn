@@ -1,0 +1,68 @@
+{
+  "ReRoutes": [
+    // user service route
+    {
+      "DownstreamPathTemplate": "/api/user",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 52791
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user/getuserbyid/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 52791
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/getuserbyid/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "user"
+    },
+    // order Service Route
+    {
+      "DownstreamPathTemplate": "/api/order/1",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 52792
+        }
+      ],
+      "UpstreamPathTemplate": "/api/order/1",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/order/getorderbyuserid/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 52792
+        }
+      ],
+      "UpstreamPathTemplate": "/api/order/getorderbyuserid/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "user-orders"
+    }
+  ],
+  "Aggregates": [
+    {
+      "ReRouteKeys": [
+        "user",
+        "user-orders"
+      ],
+      "UpstreamPathTemplate": "/api/userorders/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:44336/"
+  }
+}
